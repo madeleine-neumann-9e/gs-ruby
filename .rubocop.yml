@@ -1,0 +1,7 @@
+AllCops:
+  TargetRubyVersion: 2.4
+
+Style/FileName:
+  Exclude:
+    - 'lib/gs-ruby.rb'
+    - 'spec/gs-ruby_spec.rb'
