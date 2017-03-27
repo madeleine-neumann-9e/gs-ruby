@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'gs-ruby/configuration'
 require 'gs-ruby/options'
 require 'gs-ruby/version'
 
