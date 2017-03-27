@@ -47,6 +47,8 @@ module GS
     #   end
     #
     # @return [Hash] the default options and their values
+    #
+    # @see Command#option
     def default_options
       @default_options ||= { GS::BATCH => nil }
     end
