@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'open3'
 
 module GS
@@ -65,9 +66,18 @@ module GS
     private
 
     def build_switches
-      options
-        .map { |(n, v)| v ? "-s#{n}=#{v}" : "-d#{n}" }
-        .join(' ')
+      options.map do |(n, v)|
+        flag   = '-d'
+        option = n
+
+        if v
+          flag = '-s' if v.is_a?(String)
+
+          option = "#{n}=#{v}"
+        end
+
+        "#{flag}#{option}"
+      end.join(' ')
     end
   end
 end

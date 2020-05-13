@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 describe GS::Command do
@@ -67,6 +68,42 @@ describe GS::Command do
 
     it 'returns the resulting process status' do
       expect(command.run(inputs)).to be(status)
+    end
+  end
+
+  describe '#build_switches' do
+    let(:build_switches_call) do
+      command.send(:build_switches)
+    end
+
+    context 'when the value is not present' do
+      before do
+        command.option(GS::NO_PAUSE)
+      end
+
+      it 'uses -d without a value' do
+        expect(build_switches_call).to eq('-dBATCH -dNOPAUSE')
+      end
+    end
+
+    context 'when the value is a string' do
+      before do
+        command.option(GS::PROCESS_COLOR_MODEL, 'DeviceCMYK')
+      end
+
+      it 'uses -s with a value' do
+        expect(build_switches_call).to eq('-dBATCH -sProcessColorModel=DeviceCMYK')
+      end
+    end
+
+    context 'when the value is not a string' do
+      before do
+        command.option(GS::PDFA_COMPATIBILITY_POLICY, 1)
+      end
+
+      it 'uses -d with a value' do
+        expect(build_switches_call).to eq('-dBATCH -dPDFACompatibilityPolicy=1')
+      end
     end
   end
 end
